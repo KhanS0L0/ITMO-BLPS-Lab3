@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<users><user><id>1</id><username>xml-user</username><password>$2a$10$0fAQYzSCE/vp9oT5WIpXdOwlT0jdI4AWYdPL0qf7DSt.6ACehciMC</password><email>s270238@gmail.com</email><roles><role>ROLE_USER</role></roles></user><user><id>2</id><username>xml-admin</username><password>$2a$10$i1327Mo6Cn3bqs1Ok1hqqu8hWjBjgey4kYR9fjoq8ShGBbbEAXfG2</password><email>s270238@gmail.com</email><roles><role>ROLE_ADMIN</role></roles></user></users>
