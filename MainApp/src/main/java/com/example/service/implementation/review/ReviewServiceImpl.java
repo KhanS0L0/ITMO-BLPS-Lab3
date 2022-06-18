@@ -13,6 +13,7 @@ import com.example.mapper.TemporaryReviewMapper;
 import com.example.repository.review.PublishedReviewRepository;
 import com.example.repository.review.TemporaryReviewRepository;
 import com.example.service.interfaces.review.ReviewService;
+import com.example.service.interfaces.review.ReviewServiceCamunda;
 import com.example.service.interfaces.user.AdministratorService;
 import com.example.service.interfaces.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class ReviewServiceImpl implements ReviewService {
+public class ReviewServiceImpl implements ReviewService, ReviewServiceCamunda {
 
     private final TemporaryReviewRepository temporaryReviewRepository;
     private final PublishedReviewRepository publishedReviewRepository;
@@ -50,7 +51,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Transactional
     public void saveNewTemporaryReview(TemporaryReviewDTO dto) throws UserNotFoundException {
         User author = userService.findUserByUsername(dto.getUserLogin());
-        if(author == null)
+        if (author == null)
             throw new UserNotFoundException("No such user");
 
         TemporaryReview review = temporaryReviewMapper.mapDTOToEntity(dto);
@@ -64,11 +65,12 @@ public class ReviewServiceImpl implements ReviewService {
         temporaryReviewRepository.save(review);
     }
 
+
     @Override
     @Transactional
     public void updateTemporaryReview(TemporaryReviewDTO dto, String username) throws NullPointerException {
         TemporaryReview temporaryReview = temporaryReviewRepository.findTemporaryReviewByIdAndAuthorUsername(dto.getReviewId(), username);
-        if(temporaryReview == null)
+        if (temporaryReview == null)
             throw new NullPointerException("No such review");
         temporaryReviewMapper.updateEntity(temporaryReview, dto);
         temporaryReviewRepository.save(temporaryReview);
@@ -109,5 +111,30 @@ public class ReviewServiceImpl implements ReviewService {
     public List<PublishedReviewDTO> getAllPublishedReviews() {
         List<PublishedReview> publishedReviews = publishedReviewRepository.findAll();
         return publishedReviewMapper.mapEntityListToDTOList(publishedReviews);
+    }
+
+    @Override
+    public long saveNewTemporaryReviewForCamunda(TemporaryReviewDTO dto) throws UserNotFoundException {
+        User author = userService.findUserByUsername(dto.getUserLogin());
+        if (author == null)
+            throw new UserNotFoundException("No such user");
+
+        TemporaryReview review = temporaryReviewMapper.mapDTOToEntity(dto);
+        Administrator inspector = administratorService.findAdminWithMinWork();
+
+        review.setAuthor(author);
+        review.setInspector(inspector);
+        review.setReviewStatus(ReviewStatus.ON_REVISION);
+        review.setPriority("LOW");
+
+        TemporaryReview temporaryReview = temporaryReviewRepository.save(review);
+        return temporaryReview.getId();
+    }
+
+    @Override
+    public void updateTemporaryReviewStatusForCamunda(ReviewStatus reviewStatus, Long reviewId) {
+        TemporaryReview temporaryReview = temporaryReviewRepository.findTemporaryReviewById(reviewId);
+        temporaryReview.setStatus(String.valueOf(reviewStatus));
+        temporaryReviewRepository.save(temporaryReview);
     }
 }

@@ -31,7 +31,7 @@ public class MessageService {
     }
 
     //second minute hour day_month month day_week
-    //@Scheduled(cron = "* 45 * * * *", zone = "Europe/Moscow")
+//    @Scheduled(cron = "* 45 * * * *", zone = "Europe/Moscow")
     @Scheduled(fixedDelay = 5, timeUnit = TimeUnit.MINUTES)
     public void sendTemporaryReviews(){
         log.info("Current date and time is - {}", new Date());

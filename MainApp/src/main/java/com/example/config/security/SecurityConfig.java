@@ -38,17 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .authorizeRequests()
-                .antMatchers("/api/account/signUp").permitAll()
-
-                .antMatchers("/api/published/all").hasRole(AccountRoles.USER.getSecurityRole())
-                .antMatchers("/api/temporary/create").hasRole(AccountRoles.USER.getSecurityRole())
-                .antMatchers("/api/temporary/update").hasRole(AccountRoles.USER.getSecurityRole())
-                .antMatchers("/api/notification/all").hasRole(AccountRoles.USER.getSecurityRole())
-
-                .antMatchers("/api/temporary/all").hasRole(AccountRoles.ADMIN.getSecurityRole())
-                .antMatchers("/api/notification/send").hasRole(AccountRoles.ADMIN.getSecurityRole())
-
-                .anyRequest().authenticated()
+//                .antMatchers("/api/account/signUp").permitAll()
+//
+//                .antMatchers("/api/published/all").hasRole(AccountRoles.USER.getSecurityRole())
+//                .antMatchers("/api/temporary/create").hasRole(AccountRoles.USER.getSecurityRole())
+//                .antMatchers("/api/temporary/update").hasRole(AccountRoles.USER.getSecurityRole())
+//                .antMatchers("/api/notification/all").hasRole(AccountRoles.USER.getSecurityRole())
+//
+//                .antMatchers("/api/temporary/all").hasRole(AccountRoles.ADMIN.getSecurityRole())
+//                .antMatchers("/api/notification/send").hasRole(AccountRoles.ADMIN.getSecurityRole())
+                .anyRequest().permitAll()
 
                 .and()
                 .apply(new AuthConfig(authTokenProvider));

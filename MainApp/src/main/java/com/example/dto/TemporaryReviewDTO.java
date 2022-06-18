@@ -1,17 +1,15 @@
 package com.example.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class TemporaryReviewDTO implements Comparable<TemporaryReviewDTO> {
     private String priority;
-    private long reviewId;
+    private Long reviewId;
     private String country;
     private String city;
     private String reviewBody;

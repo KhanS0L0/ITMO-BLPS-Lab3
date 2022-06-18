@@ -12,7 +12,6 @@ import java.util.List;
 
 @Repository
 public interface TemporaryReviewRepository extends JpaRepository<TemporaryReview, Long> {
-
     @Modifying
     @Query("update TEMPORARY_REVIEWS tr set tr.priority = :priority where tr.id = :reviewId")
     void updatePriorityOfTemporaryReview(@Param("priority") String priority, @Param("reviewId") Long reviewId);

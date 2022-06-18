@@ -18,7 +18,49 @@
         <swagger.version>3.0.0</swagger.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.6.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.camunda.bpm</groupId>
+                <artifactId>camunda-bom</artifactId>
+                <version>7.17.0</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+
+        <!-- Camunda -->
+
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.camunda.spin</groupId>
+            <artifactId>camunda-spin-dataformat-all</artifactId>
+        </dependency>
 
         <!-- Spring Boot -->
 
@@ -48,17 +90,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jta-atomikos</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.atomikos</groupId>
-            <artifactId>transactions-hibernate4</artifactId>
-            <version>5.0.9</version>
         </dependency>
 
         <dependency>

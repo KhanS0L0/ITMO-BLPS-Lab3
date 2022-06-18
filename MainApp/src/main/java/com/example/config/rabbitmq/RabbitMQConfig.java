@@ -17,19 +17,14 @@ public class RabbitMQConfig {
 
     @Value("${spring.rabbitmq.host}")
     private String address;
-
     @Value("${spring.rabbitmq.username}")
     private String username;
-
     @Value("${spring.rabbitmq.password}")
     private String password;
-
     @Value("${rabbitmq.review-queue}")
     private String reviewQueueName;
-
     @Value("${rabbitmq.app-exchange}")
     private String exchange;
-
     @Value("${rabbitmq.review-routingKey}")
     private String reviewRoutingKey;
 
